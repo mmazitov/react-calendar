@@ -45,12 +45,14 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 		<header className="flex justify-between items-center py-[25px] calendar-header">
 			<div className="flex items-center gap-[5px] buttons-holder">
 				<Button
+					type="button"
 					value="Today"
 					onClick={() =>
 						goToToday(today, setCurrentMonth, setCurrentYear, setSelectedWeek)
 					}
 				/>
 				<Button
+					type="button"
 					value={<IoIosArrowUp />}
 					onClick={() =>
 						prevPeriod(
@@ -67,6 +69,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 					}
 				/>
 				<Button
+					type="button"
 					value={<IoIosArrowDown />}
 					onClick={() =>
 						nextPeriod(
@@ -95,11 +98,13 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 					inputButtonValue={<IoMdSearch />}
 				/>
 				<Button
+					type="button"
 					value="Month"
 					onClick={() => handleViewTypeChange('month')}
 					className={`${viewType === 'month' ? 'active' : ''}`}
 				/>
 				<Button
+					type="button"
 					value="Week"
 					variant="primary"
 					onClick={() => handleViewTypeChange('week')}
