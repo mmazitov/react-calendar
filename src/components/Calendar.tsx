@@ -17,7 +17,6 @@ const Calendar: React.FC = () => {
 	const today = new Date();
 	const dispatch = useDispatch<AppDispatch>();
 
-	// Подключаем Redux
 	const viewType = useSelector((state: RootState) => state.viewType.viewType);
 	const currentMonth = useSelector(
 		(state: RootState) => state.week.currentMonth,
@@ -28,7 +27,6 @@ const Calendar: React.FC = () => {
 	);
 	const { holidays } = useFetchHolidays(currentYear);
 
-	// Вспомогательные функции
 	const daysInMonth = (year: number, month: number) =>
 		new Date(year, month + 1, 0).getDate();
 	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -50,7 +48,6 @@ const Calendar: React.FC = () => {
 	const holidayWrapper = (day: number, month: number, year: number) =>
 		isHoliday(day, month, year, holidays);
 
-	// Рендеринг MonthView
 	const renderMonthViewContent = () => {
 		return (
 			<MonthView
@@ -62,7 +59,6 @@ const Calendar: React.FC = () => {
 		);
 	};
 
-	// Рендеринг WeekView
 	const renderWeekViewContent = () => {
 		return (
 			<WeekView days={days} isHoliday={holidayWrapper} isWeekend={isWeekend} />
@@ -73,8 +69,8 @@ const Calendar: React.FC = () => {
 		<div className="pb-[25px] calendar">
 			<CalendarHeader
 				today={today}
-				viewType={viewType} // Глобальное состояние из Redux
-				setViewType={(type) => dispatch(setViewTypeAction(type))} // Устанавливаем через Redux
+				viewType={viewType}
+				setViewType={(type) => dispatch(setViewTypeAction(type))}
 				currentMonth={currentMonth}
 				currentYear={currentYear}
 				setCurrentMonth={(month) => dispatch(setCurrentMonth(month))}
