@@ -1,0 +1,22 @@
+.button {
+	@apply flex items-center justify-center cursor-pointer outline-none transition-colors focus-visible:outline-none focus:outline-none;
+}
+
+.button.active {
+	@apply bg-[#3200d6] text-[#fff] border-b-[#3200d6];
+}
+
+.button.primary {
+	@apply px-[10px] py-[5px] rounded-[5px] min-h-[40px] min-w-[80px] bg-[#e3e5e6] text-[#969899] border-2 border-transparent border-b-[#969899] hover:text-[#000] hover:bg-[#969899] hover:border-transparent hover:border-b-[#969899];
+}
+
+.button.primary.active {
+	@apply bg-[#3200d6] text-[#fff] border-b-[#3200d6];
+}
+
+.button.secondary {
+}
+
+.button.danger {
+	@apply bg-[#ff4d4d] text-[#fff] border-2 border-transparent border-b-[#ff0000] hover:text-[#fff] hover:bg-[#ff0000] hover:border-transparent hover:border-b-[#ff0000];
+}

@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.day {
+	@apply border-[1px] bg-[#e3e5e6] p-[10px] border-transparent rounded-[5px];
+}
+
+.day.outter {
+	@apply bg-[#ebebeb];
+}
+
+.day.weekend {
+	@apply bg-[#c7d3ff];
+}
+
+.day.holiday {
+	@apply bg-[#afe3de];
+}
+
+.day.today {
+	@apply border-[#3200d6];
+}
+
+.day.inner {
+	@apply border-0 bg-[#e3e5e6] p-0 border-r last:border-r-0 border-blue-300 rounded-[0];
+}
+
+.day.inner.weekend {
+	@apply bg-[#c7d3ff];
+}

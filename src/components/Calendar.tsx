@@ -1,0 +1,95 @@
+import { useDispatch, useSelector } from 'react-redux';
+import useFetchHolidays from '../hooks/useFetchHolidays';
+import { AppDispatch, RootState } from '../store/store';
+import { setViewType as setViewTypeAction } from '../store/viewTypeSlice';
+import {
+	setCurrentMonth,
+	setCurrentYear,
+	setSelectedWeek,
+} from '../store/weekSlice';
+import { generateDays } from '../utils/calendarUtils';
+import { isHoliday, isToday, isWeekend } from '../utils/dayUtils';
+import CalendarHeader from './calendarComponents/CalendarHeader';
+import MonthView from './calendarComponents/views/MonthView';
+import WeekView from './calendarComponents/views/WeekView';
+
+const Calendar: React.FC = () => {
+	const today = new Date();
+	const dispatch = useDispatch<AppDispatch>();
+
+	// Подключаем Redux
+	const viewType = useSelector((state: RootState) => state.viewType.viewType);
+	const currentMonth = useSelector(
+		(state: RootState) => state.week.currentMonth,
+	);
+	const currentYear = useSelector((state: RootState) => state.week.currentYear);
+	const selectedWeek = useSelector(
+		(state: RootState) => state.week.selectedWeek,
+	);
+	const { holidays } = useFetchHolidays(currentYear);
+
+	// Вспомогательные функции
+	const daysInMonth = (year: number, month: number) =>
+		new Date(year, month + 1, 0).getDate();
+	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+	const lastDayOfMonth = new Date(
+		currentYear,
+		currentMonth,
+		daysInMonth(currentYear, currentMonth),
+	).getDay();
+
+	const days = generateDays(
+		currentYear,
+		currentMonth,
+		firstDayOfMonth,
+		lastDayOfMonth,
+		selectedWeek,
+		viewType,
+	);
+
+	const holidayWrapper = (day: number, month: number, year: number) =>
+		isHoliday(day, month, year, holidays);
+
+	// Рендеринг MonthView
+	const renderMonthViewContent = () => {
+		return (
+			<MonthView
+				days={days}
+				isHoliday={holidayWrapper}
+				isWeekend={isWeekend}
+				isToday={isToday}
+			/>
+		);
+	};
+
+	// Рендеринг WeekView
+	const renderWeekViewContent = () => {
+		return (
+			<WeekView days={days} isHoliday={holidayWrapper} isWeekend={isWeekend} />
+		);
+	};
+
+	return (
+		<div className="pb-[25px] calendar">
+			<CalendarHeader
+				today={today}
+				viewType={viewType} // Глобальное состояние из Redux
+				setViewType={(type) => dispatch(setViewTypeAction(type))} // Устанавливаем через Redux
+				currentMonth={currentMonth}
+				currentYear={currentYear}
+				setCurrentMonth={(month) => dispatch(setCurrentMonth(month))}
+				setCurrentYear={(year) => dispatch(setCurrentYear(year))}
+				setSelectedWeek={(week) => dispatch(setSelectedWeek(week))}
+				selectedWeek={selectedWeek}
+				firstDayOfMonth={firstDayOfMonth}
+				daysInMonth={daysInMonth}
+				days={days}
+			/>
+			{viewType === 'month'
+				? renderMonthViewContent()
+				: renderWeekViewContent()}
+		</div>
+	);
+};
+
+export default Calendar;
