@@ -1,16 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface Event {
-	id: number;
-	date: string;
-	startTime: string;
-	endTime: string;
-	title: string;
-}
-
-interface EventState {
-	events: Event[];
-}
+import { Event, EventState } from '../types/types';
 
 const initialState: EventState = {
 	events: [],

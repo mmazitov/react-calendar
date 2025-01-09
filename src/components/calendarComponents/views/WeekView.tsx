@@ -1,17 +1,6 @@
+import { Day, Holiday } from '../../../types/types';
 import WeekHeading from '../headings/WeekHeading';
 import './index.css';
-
-interface Holiday {
-	date: string;
-	localName: string;
-}
-
-interface Day {
-	year: number;
-	month: number;
-	day: number;
-	isCurrentMonth: boolean;
-}
 
 interface WeekViewProps {
 	days: Day[];

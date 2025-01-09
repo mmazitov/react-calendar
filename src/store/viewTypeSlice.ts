@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface ViewTypeState {
-	viewType: 'month' | 'week';
-}
+import { ViewTypeState } from '../types/types';
 
 const initialState: ViewTypeState = {
 	viewType: 'month',

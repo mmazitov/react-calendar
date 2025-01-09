@@ -1,11 +1,5 @@
+import { Option } from '../../types/types';
 import './index.css';
-
-import React from 'react';
-
-interface Option {
-	value: string | number;
-	label: string;
-}
 
 interface SelectProps {
 	options: Option[];

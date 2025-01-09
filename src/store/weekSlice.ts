@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface WeekState {
-	selectedWeek: number;
-	currentMonth: number;
-	currentYear: number;
-}
+import { WeekState } from '../types/types';
 
 const initialState: WeekState = {
-	selectedWeek: 5,
+	selectedWeek: 0,
 	currentMonth: new Date().getMonth(),
 	currentYear: new Date().getFullYear(),
 };
