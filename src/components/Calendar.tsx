@@ -13,6 +13,8 @@ import CalendarHeader from './calendarComponents/CalendarHeader';
 import MonthView from './calendarComponents/views/MonthView';
 import WeekView from './calendarComponents/views/WeekView';
 
+export type ViewType = 'month' | 'week';
+
 const Calendar: React.FC = () => {
 	const today = new Date();
 	const dispatch = useDispatch<AppDispatch>();

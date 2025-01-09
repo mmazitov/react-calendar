@@ -1,4 +1,4 @@
-import { ViewType } from '../components/Calendar'; // Import ViewType if it's defined in the Calendar component
+import { ViewType } from '../components/Calendar';
 
 export const nextPeriod = (
 	viewType: ViewType,
