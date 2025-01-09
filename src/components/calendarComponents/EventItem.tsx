@@ -2,10 +2,11 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import { Event } from '../../types/types';
 
-const EventItem: React.FC<{ event: Event; onClick: () => void }> = ({
-	event,
-	onClick,
-}) => {
+const EventItem: React.FC<{
+	event: Event;
+	onClick: () => void;
+	style?: React.CSSProperties;
+}> = ({ event, onClick }) => {
 	const [, drag] = useDrag(() => ({
 		type: 'EVENT',
 		item: { id: event.id, date: event.date },

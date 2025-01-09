@@ -1,6 +1,4 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useEventHandlers } from '../../../hooks/useEventHandlers';
 import { Day, Holiday } from '../../../types/types';
 import EventInfoModal from '../../modals/EventInfoModal';
@@ -45,7 +43,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 	});
 
 	return (
-		<DndProvider backend={HTML5Backend}>
+		<div>
 			<div className="justify-start grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] min-h-screen week">
 				{/* Time scale */}
 				<div className="flex flex-col col-start-1 row-span-2 w-[60px]">
@@ -222,7 +220,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 					}}
 				/>
 			)}
-		</DndProvider>
+		</div>
 	);
 };
 

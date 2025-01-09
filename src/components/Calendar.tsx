@@ -12,6 +12,8 @@ import { isHoliday, isToday, isWeekend } from '../utils/dayUtils';
 import CalendarHeader from './calendarComponents/CalendarHeader';
 import MonthView from './calendarComponents/views/MonthView';
 import WeekView from './calendarComponents/views/WeekView';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export type ViewType = 'month' | 'week';
 
@@ -83,9 +85,11 @@ const Calendar: React.FC = () => {
 				daysInMonth={daysInMonth}
 				days={days}
 			/>
-			{viewType === 'month'
-				? renderMonthViewContent()
-				: renderWeekViewContent()}
+			<DndProvider backend={HTML5Backend}>
+				{viewType === 'month'
+					? renderMonthViewContent()
+					: renderWeekViewContent()}
+			</DndProvider>
 		</div>
 	);
 };
