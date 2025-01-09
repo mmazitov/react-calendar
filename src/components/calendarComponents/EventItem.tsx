@@ -22,7 +22,10 @@ const EventItem: React.FC<EventItemProps> = ({ event, onClick, style }) => {
 			ref={drag}
 			className="left-[5px] absolute bg-blue-200 p-[5px] rounded-[5px] w-[calc(100%-10px)] text-sm break-all cursor-pointer"
 			style={{ ...style, opacity: isDragging ? 0.5 : 1 }}
-			onClick={onClick}
+			onClick={(e) => {
+				e.stopPropagation();
+				onClick();
+			}}
 		>
 			{event.title}
 		</div>
