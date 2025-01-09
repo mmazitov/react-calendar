@@ -101,12 +101,6 @@ export const useEventHandlers = () => {
 		}
 	};
 
-	const clearEventData = () => {
-		setNewEventTitle('');
-		setNewEventStartTime('');
-		setNewEventEndTime('');
-	};
-
 	const handleDropEvent = (eventId: number, newDate: string) => {
 		dispatch(setEventDate({ id: eventId, date: newDate }));
 	};
@@ -119,7 +113,14 @@ export const useEventHandlers = () => {
 
 	const handleEventClick = (event: Event) => {
 		setSelectedEvent(event);
+		setSelectedDate(null);
 		setIsEditing(false);
+	};
+
+	const clearEventData = () => {
+		setNewEventTitle('');
+		setNewEventStartTime('');
+		setNewEventEndTime('');
 	};
 
 	const filteredEvents = events.filter((event) =>

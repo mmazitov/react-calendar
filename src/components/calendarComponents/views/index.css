@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .day {
-	@apply border-[1px] bg-[#e3e5e6] p-[10px] border-transparent rounded-[5px];
+	@apply border-[1px] bg-[#e3e5e6] p-[5px] border-transparent rounded-[5px];
 }
 
 .day.outter {

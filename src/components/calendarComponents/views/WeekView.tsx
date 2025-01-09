@@ -116,12 +116,14 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 								}`}
 								onClick={() => handleDayClick(dateKey)}
 							>
-								{/* Holiday section */}
-								{holiday && (
-									<div className="top-[5px] z-10 absolute inset-x-0 bg-[#fff] mx-1 px-2 py-1 rounded text-ellipsis text-xs whitespace-nowrap overflow-hidden">
-										{holiday.localName}
-									</div>
-								)}
+								<div>
+									{/* Holiday section */}
+									{holiday && (
+										<div className="top-[5px] z-10 absolute inset-x-0 bg-[#fff] mx-1 px-2 py-1 rounded text-ellipsis text-xs whitespace-nowrap overflow-hidden">
+											{holiday.localName}
+										</div>
+									)}
+								</div>
 								{/* Hour grid for each day */}
 								{hours.map((_, hourIndex) => (
 									<div
@@ -159,7 +161,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 											key={event.id}
 											event={event}
 											onClick={() => handleEventClick(event)}
-											style={{ top: `${top}px`, height: `${height}px` }}
+											style={{ top: `${top + 5}px`, height: `${height}px` }}
 										/>
 									);
 								})}

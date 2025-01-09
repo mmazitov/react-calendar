@@ -10,7 +10,7 @@ interface DayCellProps {
 	isWeekend: (day: number, month: number, year: number) => boolean;
 	isToday: (day: number, month: number, year: number) => boolean;
 	onDropEvent: (eventId: number, newDate: string) => void;
-	onDayClick: (dateKey: string) => void;
+	onDayClick: (date: string) => void;
 	onEventClick: (event: Event) => void;
 }
 
@@ -24,25 +24,18 @@ const DayCell: React.FC<DayCellProps> = ({
 	onDayClick,
 	onEventClick,
 }) => {
-	const [{ isOver }, drop] = useDrop(() => ({
-		accept: 'EVENT',
+	const dateKey = `${day.year}-${String(day.month + 1).padStart(2, '0')}-${String(day.day).padStart(2, '0')}`;
+
+	const [, drop] = useDrop({
+		accept: 'event',
 		drop: (item: { id: number; date: string }) => {
-			const newDate = `${day.year}-${String(day.month + 1).padStart(2, '0')}-${String(
-				day.day,
-			).padStart(2, '0')}`;
-			onDropEvent(item.id, newDate);
+			onDropEvent(item.id, dateKey);
 		},
-		collect: (monitor) => ({
-			isOver: !!monitor.isOver(),
-		}),
-	}));
+	});
 
 	const holiday = isHoliday(day.day, day.month, day.year);
 	const weekend = isWeekend(day.day, day.month, day.year);
-	const todayFlag = isToday(day.day, day.month, day.year);
-	const dateKey = `${day.year}-${String(day.month + 1).padStart(2, '0')}-${String(
-		day.day,
-	).padStart(2, '0')}`;
+	const today = isToday(day.day, day.month, day.year);
 
 	const isFirstDayOfMonth = day.day === 1;
 	const monthName = isFirstDayOfMonth
@@ -56,16 +49,10 @@ const DayCell: React.FC<DayCellProps> = ({
 	return (
 		<div
 			ref={drop}
-			className={`day hover:bg-slate-400 transition-colors min-h-[80px] ${
-				weekend ? 'weekend' : ''
-			} ${holiday ? 'holiday' : ''} ${todayFlag ? 'today' : ''} ${
+			className={`day relative hover:bg-slate-400 transition-colors min-h-[80px] ${weekend ? 'weekend' : ''} ${today ? 'today' : ''}  ${
 				day.isCurrentMonth ? '' : 'outer'
-			} ${isOver ? 'bg-gray-200' : ''}`}
-			onClick={(e) => {
-				if (e.target === e.currentTarget) {
-					onDayClick(dateKey);
-				}
-			}}
+			}`}
+			onClick={() => onDayClick(dateKey)}
 		>
 			<div className="flex items-center gap-[1px] mb-[3px] day-heading">
 				{isFirstDayOfMonth && <strong>{monthName} </strong>}
@@ -76,7 +63,6 @@ const DayCell: React.FC<DayCellProps> = ({
 					</span>
 				)}
 			</div>
-
 			<div className="flex flex-col gap-2 day-event">
 				{holiday && (
 					<small className="block bg-[#ffffff] p-[5px] rounded-[5px]">
@@ -88,6 +74,7 @@ const DayCell: React.FC<DayCellProps> = ({
 						key={event.id}
 						event={event}
 						onClick={() => onEventClick(event)}
+						style={{}}
 					/>
 				))}
 			</div>
