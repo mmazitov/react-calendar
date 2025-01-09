@@ -103,6 +103,10 @@ export const useEventHandlers = () => {
 
 	const handleDropEvent = (eventId: number, newDate: string) => {
 		dispatch(setEventDate({ id: eventId, date: newDate }));
+		const event = events.find((event) => event.id === eventId);
+		if (event) {
+			openEditModal({ ...event, date: newDate });
+		}
 	};
 
 	const handleDayClick = (dateKey: string) => {

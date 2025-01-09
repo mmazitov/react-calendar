@@ -1,13 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .day {
 	@apply border-[1px] bg-[#e3e5e6] p-[5px] border-transparent rounded-[5px];
 }
 
-.day.outter {
-	@apply bg-[#ebebeb];
+.day.outer {
+	@apply bg-[#ebebeb] text-gray-400;
+}
+
+.day.outer span {
+	@apply text-gray-400;
 }
 
 .day.weekend {
