@@ -1,3 +1,6 @@
+import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import useFetchHolidays from '../hooks/useFetchHolidays';
 import { AppDispatch, RootState } from '../store/store';
@@ -12,8 +15,6 @@ import { isHoliday, isToday, isWeekend } from '../utils/dayUtils';
 import CalendarHeader from './calendarComponents/CalendarHeader';
 import MonthView from './calendarComponents/views/MonthView';
 import WeekView from './calendarComponents/views/WeekView';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export type ViewType = 'month' | 'week';
 
@@ -74,12 +75,12 @@ const Calendar: React.FC = () => {
 			<CalendarHeader
 				today={today}
 				viewType={viewType}
-				setViewType={(type) => dispatch(setViewTypeAction(type))}
+				setViewType={(type: ViewType) => dispatch(setViewTypeAction(type))}
 				currentMonth={currentMonth}
 				currentYear={currentYear}
-				setCurrentMonth={(month) => dispatch(setCurrentMonth(month))}
-				setCurrentYear={(year) => dispatch(setCurrentYear(year))}
-				setSelectedWeek={(week) => dispatch(setSelectedWeek(week))}
+				setCurrentMonth={(month: number) => dispatch(setCurrentMonth(month))}
+				setCurrentYear={(year: number) => dispatch(setCurrentYear(year))}
+				setSelectedWeek={(week: number) => dispatch(setSelectedWeek(week))}
 				selectedWeek={selectedWeek}
 				firstDayOfMonth={firstDayOfMonth}
 				daysInMonth={daysInMonth}

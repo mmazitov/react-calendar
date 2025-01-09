@@ -4,18 +4,19 @@ import { AppDispatch, RootState } from '../../store/store';
 import { setViewType as setViewTypeAction } from '../../store/viewTypeSlice';
 import { goToToday, nextPeriod, prevPeriod } from '../../utils/paginateUtils';
 import Button from '../buttons/Button';
+import { ViewType } from '../Calendar';
 import SearchInput from '../inputs/SearchInput';
 import CalendarHeading from './headings/CalendarHeading';
 
 interface CalendarHeaderProps {
 	today: Date;
 	viewType: 'month' | 'week';
-	setViewType: React.Dispatch<React.SetStateAction<'month' | 'week'>>;
+	setViewType: (type: ViewType) => void;
 	currentMonth: number;
 	currentYear: number;
-	setCurrentMonth: React.Dispatch<React.SetStateAction<number>>;
-	setCurrentYear: React.Dispatch<React.SetStateAction<number>>;
-	setSelectedWeek: React.Dispatch<React.SetStateAction<number>>;
+	setCurrentMonth: (month: number) => void;
+	setCurrentYear: (year: number) => void;
+	setSelectedWeek: (week: number) => void;
 	selectedWeek: number;
 	firstDayOfMonth: number;
 	daysInMonth: (year: number, month: number) => number;

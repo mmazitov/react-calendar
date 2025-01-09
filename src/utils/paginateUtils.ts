@@ -5,9 +5,9 @@ export const nextPeriod = (
 	currentMonth: number,
 	currentYear: number,
 	selectedWeek: number,
-	setCurrentMonth: React.Dispatch<React.SetStateAction<number>>,
-	setCurrentYear: React.Dispatch<React.SetStateAction<number>>,
-	setSelectedWeek: React.Dispatch<React.SetStateAction<number>>,
+	setCurrentMonth: (month: number) => void,
+	setCurrentYear: (year: number) => void,
+	setSelectedWeek: (week: number) => void,
 	firstDayOfMonth: number,
 	daysInMonth: (year: number, month: number) => number,
 ) => {
@@ -24,7 +24,6 @@ export const nextPeriod = (
 		);
 
 		if (selectedWeek === totalWeeks - 1) {
-			// If we're on the last week, move to the next month
 			if (currentMonth === 11) {
 				setCurrentMonth(0);
 				setCurrentYear(currentYear + 1);
@@ -43,9 +42,9 @@ export const prevPeriod = (
 	currentMonth: number,
 	currentYear: number,
 	selectedWeek: number,
-	setCurrentMonth: React.Dispatch<React.SetStateAction<number>>,
-	setCurrentYear: React.Dispatch<React.SetStateAction<number>>,
-	setSelectedWeek: React.Dispatch<React.SetStateAction<number>>,
+	setCurrentMonth: (month: number) => void,
+	setCurrentYear: (year: number) => void,
+	setSelectedWeek: (week: number) => void,
 	firstDayOfMonth: number,
 	daysInMonth: (year: number, month: number) => number,
 ) => {
@@ -58,7 +57,6 @@ export const prevPeriod = (
 		}
 	} else {
 		if (selectedWeek === 0) {
-			// If we're on the first week, move to the previous month
 			if (currentMonth === 0) {
 				setCurrentMonth(11);
 				setCurrentYear(currentYear - 1);
@@ -82,14 +80,12 @@ export const prevPeriod = (
 
 export const goToToday = (
 	today: Date,
-	setCurrentMonth: React.Dispatch<React.SetStateAction<number>>,
-	setCurrentYear: React.Dispatch<React.SetStateAction<number>>,
-	setSelectedWeek: React.Dispatch<React.SetStateAction<number>>,
+	setCurrentMonth: (month: number) => void,
+	setCurrentYear: (year: number) => void,
+	setSelectedWeek: (week: number) => void,
 ) => {
 	setCurrentMonth(today.getMonth());
 	setCurrentYear(today.getFullYear());
-
-	// Определяем номер текущей недели
 	const firstDayOfMonthToday = new Date(
 		today.getFullYear(),
 		today.getMonth(),
