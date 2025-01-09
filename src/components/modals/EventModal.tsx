@@ -85,6 +85,7 @@ const EventModal: React.FC<EventModalProps> = ({
 							onChange={(time) => setNewEventStartTime(time as string)}
 							placeholder="Start time"
 							className="w-full"
+							required={true}
 						/>
 						<span> - </span>
 						<Select
@@ -93,6 +94,7 @@ const EventModal: React.FC<EventModalProps> = ({
 							onChange={(time) => setNewEventEndTime(time as string)}
 							placeholder="End time"
 							className="w-full"
+							required={true}
 						/>
 					</div>
 					<div className="mt-[10px] modal-actions">
