@@ -1,8 +1,11 @@
 import React from 'react';
+import { DndProvider, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useEventHandlers } from '../../../hooks/useEventHandlers';
 import { Day, Holiday } from '../../../types/types';
 import EventInfoModal from '../../modals/EventInfoModal';
 import EventModal from '../../modals/EventModal';
+import EventItem from '../EventItem';
 import WeekHeading from '../headings/WeekHeading';
 import './index.css';
 
@@ -43,7 +46,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 	});
 
 	return (
-		<div>
+		<DndProvider backend={HTML5Backend}>
 			<div className="justify-start grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] min-h-screen week">
 				{/* Time scale */}
 				<div className="flex flex-col col-start-1 row-span-2 w-[60px]">
@@ -97,9 +100,17 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 						const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 						const dayEvents = events.filter((event) => event.date === dateKey);
 
+						const [, drop] = useDrop({
+							accept: 'event',
+							drop: (item: { id: number; date: string }) => {
+								handleDropEvent(item.id, dateKey);
+							},
+						});
+
 						return (
 							<div
 								key={index}
+								ref={drop}
 								className={`day inner relative ${!isCurrentMonth ? 'text-gray-400' : ''} ${
 									weekend ? 'weekend' : ''
 								}`}
@@ -144,17 +155,12 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 										60;
 
 									return (
-										<div
+										<EventItem
 											key={event.id}
-											className="right-0 left-0 absolute bg-blue-200 p-[5px] rounded-[5px] break-all cursor-pointer"
+											event={event}
+											onClick={() => handleEventClick(event)}
 											style={{ top: `${top}px`, height: `${height}px` }}
-											onClick={(e) => {
-												e.stopPropagation();
-												handleEventClick(event);
-											}}
-										>
-											{event.title}
-										</div>
+										/>
 									);
 								})}
 							</div>
@@ -220,7 +226,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 					}}
 				/>
 			)}
-		</div>
+		</DndProvider>
 	);
 };
 
