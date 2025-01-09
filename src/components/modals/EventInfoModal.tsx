@@ -61,7 +61,9 @@ const EventInfoModal: React.FC<EventInfoModalProps> = ({
 					</div>
 				</div>
 				<div className="modal-info">
-					<p className="font-bold text-xlg capitalize">{event.title}</p>
+					<p className="font-bold text-xlg break-all capitalize">
+						{event.title}
+					</p>
 					<p>
 						{dayOfWeek}, {day} {month} ⋅ {event.startTime} – {event.endTime}
 					</p>

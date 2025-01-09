@@ -13,8 +13,11 @@ const EventItem: React.FC<{ event: Event; onClick: () => void }> = ({
 	return (
 		<small
 			ref={drag}
-			className="block bg-blue-200 p-[5px] rounded-[5px] cursor-pointer"
-			onClick={onClick}
+			className="bg-blue-200 p-[5px] rounded-[5px] truncate cursor-pointer event"
+			onClick={(e) => {
+				e.stopPropagation();
+				onClick();
+			}}
 		>
 			{event.title}
 		</small>

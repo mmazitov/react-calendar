@@ -20,6 +20,7 @@ export const useEventHandlers = () => {
 	const [newEventEndTime, setNewEventEndTime] = useState<string>('');
 	const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 	const [isEditing, setIsEditing] = useState<boolean>(false);
+	const [searchQuery, setSearchQuery] = useState<string>('');
 	const modalRef = useRef<HTMLDivElement>(null);
 
 	const handleAddEvent = () => {
@@ -121,6 +122,10 @@ export const useEventHandlers = () => {
 		setIsEditing(false);
 	};
 
+	const filteredEvents = events.filter((event) =>
+		event.title.toLowerCase().includes(searchQuery.toLowerCase()),
+	);
+
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside);
 		document.addEventListener('keydown', handleEscapePress);
@@ -131,7 +136,7 @@ export const useEventHandlers = () => {
 	}, []);
 
 	return {
-		events,
+		events: filteredEvents,
 		selectedDate,
 		newEventTitle,
 		newEventStartTime,
@@ -153,5 +158,6 @@ export const useEventHandlers = () => {
 		setSelectedDate,
 		setSelectedEvent,
 		setIsEditing,
+		setSearchQuery,
 	};
 };
