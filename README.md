@@ -6,12 +6,16 @@ A calendar application built with React. This app allows users to view and manag
 
 ## 🛠 Tech Stack
 
-- **[React](https://react.dev/):** A JavaScript library for building user interfaces.
-- **[Redux Toolkit](https://redux-toolkit.js.org/):** A library for managing application state.
-- **[TypeScript](https://www.typescriptlang.org/):** A programming language that adds static typing to JavaScript.
-- **[React DnD](https://react-dnd.github.io/react-dnd/):** A library for implementing drag and drop functionality.
-- **[Redux Persist](https://www.npmjs.com/package/redux-persist):** A library for persisting Redux state in localStorage.
-- **[Tailwind CSS](https://tailwindcss.com/):** A utility-first CSS framework for styling.
+- **[React:](https://react.dev/)** A JavaScript library for building user interfaces.
+- **[Redux Toolkit:](https://redux-toolkit.js.org/)** A library for managing application state.
+- **[TypeScript:](https://www.typescriptlang.org/)** A programming language that adds static typing to JavaScript.
+- **[React DnD:](https://react-dnd.github.io/react-dnd/)** A library for implementing drag and drop functionality.
+- **[Redux Persist:](https://www.npmjs.com/package/redux-persist)** A library for persisting Redux state in localStorage.
+- **[Tailwind CSS:](https://tailwindcss.com/)** A utility-first CSS framework for styling.
+- **[React Icons:](https://react-icons.github.io/react-icons/)** A collection of popular icons for React.
+- **[ESLint:](https://eslint.org/)** A tool for identifying and fixing problems in JavaScript code.
+- **[Prettier:](https://prettier.io/)** An opinionated code formatter.
+- **[Vite:](https://vite.dev/)** A build tool that provides a faster and leaner development experience for modern web projects.
 
 ## ✨ Features
 
