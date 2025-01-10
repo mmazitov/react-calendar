@@ -1,3 +1,5 @@
+'use client';
+
 import { IoIosArrowDown, IoIosArrowUp, IoMdSearch } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEventContext } from '../../context/EventContext';

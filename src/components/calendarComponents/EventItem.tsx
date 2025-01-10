@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { useDrag } from 'react-dnd';
 import { Event } from '../../types/types';
 

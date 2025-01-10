@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import Button from '../buttons/Button';
 import Input from '../inputs/Input';
 import Select from '../select/Select';

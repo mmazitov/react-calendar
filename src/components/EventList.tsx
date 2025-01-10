@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { useEventContext } from '../context/EventContext';
 
 const EventList: React.FC = () => {

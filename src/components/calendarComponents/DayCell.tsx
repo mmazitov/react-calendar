@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { useDrop } from 'react-dnd';
 import { Day, Event, Holiday } from '../../types/types';
 import EventItem from './EventItem';

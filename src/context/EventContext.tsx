@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+'use client';
+
+import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { Event } from '../types/types';
@@ -9,9 +11,13 @@ interface EventContextProps {
 	filteredEvents: Event[];
 }
 
+interface EventProviderProps {
+	children: ReactNode;
+}
+
 const EventContext = createContext<EventContextProps | undefined>(undefined);
 
-export const EventProvider: React.FC = ({ children }) => {
+export const EventProvider: React.FC<EventProviderProps> = ({ children }) => {
 	const events = useSelector((state: RootState) => state.event.events) || [];
 	const [searchQuery, setSearchQuery] = useState<string>('');
 

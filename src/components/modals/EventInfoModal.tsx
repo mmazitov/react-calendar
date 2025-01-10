@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { MdEdit, MdOutlineClose, MdOutlineDelete } from 'react-icons/md';
 import Button from '../buttons/Button';

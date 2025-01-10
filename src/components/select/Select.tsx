@@ -1,3 +1,5 @@
+'use client';
+
 import { Option } from '../../types/types';
 import './index.css';
 
