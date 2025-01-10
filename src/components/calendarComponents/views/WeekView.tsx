@@ -16,7 +16,9 @@ interface WeekViewProps {
 	isWeekend: (day: number, month: number, year: number) => boolean;
 }
 
+// WeekView component: Displays a week's events with a time grid and modal functionality
 const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
+	// Destructure the event handlers and state management functions
 	const {
 		events,
 		selectedDate,
@@ -42,14 +44,16 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 		setIsEditing,
 	} = useEventHandlers();
 
+	// Generate an array representing each hour in a 24-hour format
 	const hours = Array.from({ length: 24 }, (_, i) => {
 		return i.toString().padStart(2, '0') + ':00';
 	});
 
 	return (
 		<DndProvider backend={HTML5Backend}>
+			{/* Main grid layout for the week view */}
 			<div className="justify-start grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] min-h-screen week">
-				{/* Time scale */}
+				{/* Time scale section (left column showing hourly breakdown) */}
 				<div className="flex flex-col col-start-1 row-span-2 w-[60px]">
 					<div className="h-[60px]"></div>{' '}
 					{/* Empty space to align with headings */}
@@ -63,9 +67,8 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 					))}
 				</div>
 
-				{/* Day grid */}
+				{/* Day headers for each day in the week */}
 				<div className="grid grid-cols-7 col-start-2 row-start-1">
-					{/* Day headers */}
 					{days.map(({ day, month, year, isCurrentMonth }, index) => {
 						const date = new Date(year, month, day);
 						const todayFlag = new Date().toDateString() === date.toDateString();
@@ -81,6 +84,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 									weekend ? 'weekend' : ''
 								}`}
 							>
+								{/* Render the heading for each day of the week */}
 								<WeekHeading
 									day={day}
 									dayName={dayName}
@@ -91,7 +95,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 					})}
 				</div>
 
-				{/* Hour grid for each day */}
+				{/* Hour grid for each day (right section) */}
 				<div className="flex-grow grid grid-cols-7 grid-rows-1">
 					{days.map(({ day, month, year, isCurrentMonth }, index) => {
 						const date = new Date(year, month, day);
@@ -117,21 +121,20 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 								}`}
 								onClick={() => handleDayClick(dateKey)}
 							>
-								<div>
-									{/* Holiday section */}
-									{holiday && (
-										<div className="top-[5px] z-10 absolute inset-x-0 bg-[#fff] mx-1 px-2 py-1 rounded text-ellipsis text-xs whitespace-nowrap overflow-hidden">
-											{holiday.localName}
-										</div>
-									)}
-								</div>
-								{/* Hour grid for each day */}
+								{/* Render holiday label if the day is a holiday */}
+								{holiday && (
+									<div className="top-[5px] z-10 absolute inset-x-0 bg-[#fff] mx-1 px-2 py-1 rounded text-ellipsis text-xs whitespace-nowrap overflow-hidden">
+										{holiday.localName}
+									</div>
+								)}
+
+								{/* Render hour slots for the day */}
 								{hours.map((_, hourIndex) => (
 									<div
 										key={hourIndex}
 										className="relative hover:bg-slate-400 border-t border-blue-300 h-[60px] transition-colors group week-day"
 									>
-										{/* Current time indicator */}
+										{/* Current time indicator for today */}
 										{todayFlag && new Date().getHours() === hourIndex && (
 											<div className="z-10 absolute bg-red-500 w-full h-[2px]">
 												<div className="-top-1 -left-1 absolute bg-red-500 rounded-full w-2 h-2"></div>
@@ -139,7 +142,8 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 										)}
 									</div>
 								))}
-								{/* Event area */}
+
+								{/* Render events for the day */}
 								{dayEvents.map((event) => {
 									const startTime = new Date(
 										`${event.date}T${event.startTime}`,
@@ -172,6 +176,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 				</div>
 			</div>
 
+			{/* Modal for adding new events */}
 			{selectedDate && !isEditing && !selectedEvent && (
 				<EventModal
 					selectedDate={selectedDate}
@@ -192,6 +197,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 				/>
 			)}
 
+			{/* Modal for editing existing events */}
 			{selectedEvent && isEditing && (
 				<EventModal
 					selectedDate={selectedEvent.date}
@@ -214,6 +220,7 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 				/>
 			)}
 
+			{/* Modal for displaying event details */}
 			{selectedEvent && !isEditing && (
 				<EventInfoModal
 					event={selectedEvent}

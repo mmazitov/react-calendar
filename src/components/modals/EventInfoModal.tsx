@@ -1,22 +1,22 @@
 'use client';
 
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { MdEdit, MdOutlineClose, MdOutlineDelete } from 'react-icons/md';
-import Button from '../buttons/Button';
+import { BsThreeDotsVertical } from 'react-icons/bs'; // Importing vertical dots icon
+import { MdEdit, MdOutlineClose, MdOutlineDelete } from 'react-icons/md'; // Importing icons for editing, closing, and deleting
+import Button from '../buttons/Button'; // Importing custom Button component
 
 import './index.css';
 
 interface EventInfoModalProps {
 	event: {
-		id: number;
-		date: string;
-		title: string;
-		startTime: string;
-		endTime: string;
+		id: number; // The unique ID of the event
+		date: string; // The date of the event (ISO format string)
+		title: string; // The title of the event
+		startTime: string; // The start time of the event
+		endTime: string; // The end time of the event
 	};
-	closeModal: () => void;
-	deleteEvent: () => void;
-	openEditModal: () => void;
+	closeModal: () => void; // Function to close the modal
+	deleteEvent: () => void; // Function to delete the event
+	openEditModal: () => void; // Function to open the edit modal
 }
 
 const EventInfoModal: React.FC<EventInfoModalProps> = ({
@@ -25,16 +25,18 @@ const EventInfoModal: React.FC<EventInfoModalProps> = ({
 	deleteEvent,
 	openEditModal,
 }) => {
+	// Parsing the event date to extract day of the week, day, and month
 	const eventDate = new Date(event.date);
-	const dayOfWeek = eventDate.toLocaleString('default', { weekday: 'long' });
-	const day = eventDate.getDate();
-	const month = eventDate.toLocaleString('default', { month: 'long' });
+	const dayOfWeek = eventDate.toLocaleString('default', { weekday: 'long' }); // Day of the week (e.g., "Monday")
+	const day = eventDate.getDate(); // Day of the month
+	const month = eventDate.toLocaleString('default', { month: 'long' }); // Month (e.g., "January")
 
 	return (
 		<div className="modal">
 			<div className="modal-content">
 				<div className="modal-header">
 					<div className="modal-actions">
+						{/* Button for opening the edit modal */}
 						<Button
 							type="button"
 							value={<MdEdit />}
@@ -42,6 +44,7 @@ const EventInfoModal: React.FC<EventInfoModalProps> = ({
 							variant="secondary"
 							className="bg-transparent hover:bg-transparent p-0 border-none min-w-0 min-h-0"
 						/>
+						{/* Button for deleting the event */}
 						<Button
 							type="button"
 							value={<MdOutlineDelete />}
@@ -49,9 +52,11 @@ const EventInfoModal: React.FC<EventInfoModalProps> = ({
 							onClick={deleteEvent}
 							className="bg-transparent hover:bg-transparent p-0 border-none min-w-0 min-h-0"
 						/>
+						{/* Vertical dots icon (could be used for more options) */}
 						<span>
 							<BsThreeDotsVertical />
 						</span>
+						{/* Button for closing the modal */}
 						<Button
 							type="button"
 							value={<MdOutlineClose />}
@@ -62,9 +67,11 @@ const EventInfoModal: React.FC<EventInfoModalProps> = ({
 					</div>
 				</div>
 				<div className="modal-info">
+					{/* Event title */}
 					<p className="font-bold text-xlg break-all capitalize">
 						{event.title}
 					</p>
+					{/* Event details: day, date, and time range */}
 					<p>
 						{dayOfWeek}, {day} {month} ⋅ {event.startTime} – {event.endTime}
 					</p>
