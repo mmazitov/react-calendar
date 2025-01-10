@@ -52,10 +52,10 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 	return (
 		<DndProvider backend={HTML5Backend}>
 			{/* Main grid layout for the week view */}
-			<div className="justify-start grid grid-cols-[auto_1fr] grid-rows-[auto_1fr] min-h-screen week">
+			<div className="justify-start grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] min-h-screen week">
 				{/* Time scale section (left column showing hourly breakdown) */}
-				<div className="flex flex-col col-start-1 row-span-2 w-[60px]">
-					<div className="h-[60px]"></div>{' '}
+				<div className="flex flex-col col-start-1 row-span-3 w-[60px]">
+					<div className="h-[100px]"></div>{' '}
 					{/* Empty space to align with headings */}
 					{hours.map((hour, index) => (
 						<div
@@ -95,12 +95,27 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 					})}
 				</div>
 
+				{/* Holiday labels for each day */}
+				<div className="grid grid-cols-7 col-start-2 row-start-2">
+					{days.map(({ day, month, year }, index) => {
+						const holiday = isHoliday(day, month, year);
+						return (
+							<div key={index} className="relative h-[40px]">
+								{holiday && (
+									<div className="top-[5px] z-10 absolute inset-x-0 bg-[#fff] mx-1 px-2 py-1 rounded text-ellipsis text-xs whitespace-nowrap overflow-hidden pointer-events-none">
+										{holiday.localName}
+									</div>
+								)}
+							</div>
+						);
+					})}
+				</div>
+
 				{/* Hour grid for each day (right section) */}
-				<div className="flex-grow grid grid-cols-7 grid-rows-1">
+				<div className="flex-grow grid grid-cols-7 grid-rows-1 col-start-2 row-start-3">
 					{days.map(({ day, month, year, isCurrentMonth }, index) => {
 						const date = new Date(year, month, day);
 						const todayFlag = new Date().toDateString() === date.toDateString();
-						const holiday = isHoliday(day, month, year);
 						const weekend = isWeekend(day, month, year);
 						const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 						const dayEvents = events.filter((event) => event.date === dateKey);
@@ -121,13 +136,6 @@ const WeekView: React.FC<WeekViewProps> = ({ days, isHoliday, isWeekend }) => {
 								}`}
 								onClick={() => handleDayClick(dateKey)}
 							>
-								{/* Render holiday label if the day is a holiday */}
-								{holiday && (
-									<div className="top-[5px] z-10 absolute inset-x-0 bg-[#fff] mx-1 px-2 py-1 rounded text-ellipsis text-xs whitespace-nowrap overflow-hidden">
-										{holiday.localName}
-									</div>
-								)}
-
 								{/* Render hour slots for the day */}
 								{hours.map((_, hourIndex) => (
 									<div
