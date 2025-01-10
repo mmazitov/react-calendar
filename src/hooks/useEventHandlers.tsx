@@ -127,10 +127,6 @@ export const useEventHandlers = () => {
 		setNewEventEndTime('');
 	};
 
-	const filteredEvents = events.filter((event) =>
-		event.title.toLowerCase().includes(searchQuery.toLowerCase()),
-	);
-
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside);
 		document.addEventListener('keydown', handleEscapePress);
@@ -141,13 +137,14 @@ export const useEventHandlers = () => {
 	}, []);
 
 	return {
-		events: filteredEvents,
+		events,
 		selectedDate,
 		newEventTitle,
 		newEventStartTime,
 		newEventEndTime,
 		selectedEvent,
 		isEditing,
+		searchQuery,
 		modalRef,
 		handleAddEvent,
 		handleEditEvent,

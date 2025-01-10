@@ -2,6 +2,7 @@ import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDispatch, useSelector } from 'react-redux';
+import { EventProvider } from '../context/EventContext';
 import useFetchHolidays from '../hooks/useFetchHolidays';
 import { AppDispatch, RootState } from '../store/store';
 import { setViewType as setViewTypeAction } from '../store/viewTypeSlice';
@@ -71,27 +72,29 @@ const Calendar: React.FC = () => {
 	};
 
 	return (
-		<div className="pb-[25px] calendar">
-			<CalendarHeader
-				today={today}
-				viewType={viewType}
-				setViewType={(type: ViewType) => dispatch(setViewTypeAction(type))}
-				currentMonth={currentMonth}
-				currentYear={currentYear}
-				setCurrentMonth={(month: number) => dispatch(setCurrentMonth(month))}
-				setCurrentYear={(year: number) => dispatch(setCurrentYear(year))}
-				setSelectedWeek={(week: number) => dispatch(setSelectedWeek(week))}
-				selectedWeek={selectedWeek}
-				firstDayOfMonth={firstDayOfMonth}
-				daysInMonth={daysInMonth}
-				days={days}
-			/>
-			<DndProvider backend={HTML5Backend}>
-				{viewType === 'month'
-					? renderMonthViewContent()
-					: renderWeekViewContent()}
-			</DndProvider>
-		</div>
+		<EventProvider>
+			<div className="pb-[25px] calendar">
+				<CalendarHeader
+					today={today}
+					viewType={viewType}
+					setViewType={(type: ViewType) => dispatch(setViewTypeAction(type))}
+					currentMonth={currentMonth}
+					currentYear={currentYear}
+					setCurrentMonth={(month: number) => dispatch(setCurrentMonth(month))}
+					setCurrentYear={(year: number) => dispatch(setCurrentYear(year))}
+					setSelectedWeek={(week: number) => dispatch(setSelectedWeek(week))}
+					selectedWeek={selectedWeek}
+					firstDayOfMonth={firstDayOfMonth}
+					daysInMonth={daysInMonth}
+					days={days}
+				/>
+				<DndProvider backend={HTML5Backend}>
+					{viewType === 'month'
+						? renderMonthViewContent()
+						: renderWeekViewContent()}
+				</DndProvider>
+			</div>
+		</EventProvider>
 	);
 };
 

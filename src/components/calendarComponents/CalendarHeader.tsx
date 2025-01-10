@@ -1,10 +1,12 @@
 import { IoIosArrowDown, IoIosArrowUp, IoMdSearch } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEventContext } from '../../context/EventContext';
 import { AppDispatch, RootState } from '../../store/store';
 import { setViewType as setViewTypeAction } from '../../store/viewTypeSlice';
 import { goToToday, nextPeriod, prevPeriod } from '../../utils/paginateUtils';
 import Button from '../buttons/Button';
 import { ViewType } from '../Calendar';
+import EventList from '../EventList';
 import SearchInput from '../inputs/SearchInput';
 import CalendarHeading from './headings/CalendarHeading';
 
@@ -37,6 +39,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 }) => {
 	const viewType = useSelector((state: RootState) => state.viewType.viewType);
 	const dispatch = useDispatch<AppDispatch>();
+	const { setSearchQuery } = useEventContext();
 
 	const handleViewTypeChange = (type: 'month' | 'week') => {
 		dispatch(setViewTypeAction(type));
@@ -93,24 +96,28 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 				days={days}
 				viewType={viewType}
 			/>
-			<div className="flex items-stretch gap-[5px]">
+			<div className="relative flex items-stretch gap-[5px]">
 				<SearchInput
 					inputPaceholder="Search"
 					inputButtonValue={<IoMdSearch />}
+					onSearchChange={(value) => setSearchQuery(value)}
 				/>
-				<Button
-					type="button"
-					value="Month"
-					onClick={() => handleViewTypeChange('month')}
-					className={`${viewType === 'month' ? 'active' : ''}`}
-				/>
-				<Button
-					type="button"
-					value="Week"
-					variant="primary"
-					onClick={() => handleViewTypeChange('week')}
-					className={`${viewType === 'week' ? 'active' : ''}`}
-				/>
+				<EventList />
+				<div className="flex items-stretch gap-[5px]">
+					<Button
+						type="button"
+						value="Month"
+						onClick={() => handleViewTypeChange('month')}
+						className={`${viewType === 'month' ? 'active' : ''}`}
+					/>
+					<Button
+						type="button"
+						value="Week"
+						variant="primary"
+						onClick={() => handleViewTypeChange('week')}
+						className={`${viewType === 'week' ? 'active' : ''}`}
+					/>
+				</div>
 			</div>
 		</header>
 	);
