@@ -29,3 +29,8 @@
 .day.inner.weekend {
 	@apply bg-[#c7d3ff];
 }
+
+.month .day-event div {
+	@apply relative;
+
+}
