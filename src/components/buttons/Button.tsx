@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
 			onClick={onClick} // Executes the click handler if provided
 			type={type} // Specifies the button type (e.g., 'submit')
 		>
-			{value} // The content of the button, such as text or JSX elements
+			{value} {/*The content of the button, such as text or JSX elements*/}
 		</button>
 	);
 };
