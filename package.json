@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"lint": "eslint .",
+		"lint": "eslint **/*.{js,jsx,ts,tsx}",
 		"preview": "vite preview"
 	},
 	"dependencies": {
@@ -26,7 +26,7 @@
 		"@vitejs/plugin-react": "^4.3.4",
 		"autoprefixer": "^10.4.20",
 		"axios": "^1.7.9",
-		"eslint": "^9.17.0",
+		"eslint": "8.49.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-import": "^2.31.0",
@@ -46,5 +46,8 @@
 		"typescript": "~5.6.2",
 		"typescript-eslint": "^8.18.2",
 		"vite": "^6.0.5"
+	},
+	"engines": {
+		"node": ">=18.18.1"
 	}
 }
